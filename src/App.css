@@ -1,0 +1,87 @@
+/* App-specific styles */
+
+/* Smooth scroll behavior */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(126, 110, 227, 0.3);
+  color: white;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid #7e6ee3;
+  outline-offset: 2px;
+}
+
+/* Image loading placeholder */
+img {
+  background: linear-gradient(135deg, #11111a 0%, #1a1a2e 100%);
+}
+
+/* Prevent layout shift */
+img[src] {
+  background: none;
+}
+
+/* Custom cursor (optional enhancement) */
+@media (hover: hover) and (pointer: fine) {
+  .custom-cursor {
+    cursor: none;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile touch improvements */
+@media (hover: none) {
+  .hover\:shadow-glow:hover {
+    box-shadow: none;
+  }
+  
+  .hover\:shadow-glow-lg:hover {
+    box-shadow: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .noise-overlay,
+  nav,
+  footer {
+    display: none !important;
+  }
+  
+  section {
+    break-inside: avoid;
+  }
+}
