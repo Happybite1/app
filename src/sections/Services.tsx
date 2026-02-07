@@ -85,62 +85,55 @@ function ServiceCard({ service }: ServiceCardProps) {
   }, [mousePosition, isHovered]);
 
   const Icon = service.icon;
-
   return (
-    <div
-      ref={cardRef}
-      className="service-card group relative"
-      style={{ 
-        perspective: '1000px',
-        transformStyle: 'preserve-3d',
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className="relative p-8 glass rounded-2xl border border-white/5 hover:border-purple/30 transition-all duration-500 h-full">
-        {/* Moving border gradient on hover */}
-        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
-          <div className="absolute inset-[-100%] bg-gradient-conic from-transparent via-purple/20 to-transparent animate-rotate-slow" />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10">
-          {/* Icon */}
-          <div className="w-14 h-14 mb-6 rounded-xl bg-purple/10 flex items-center justify-center group-hover:bg-purple/20 transition-colors">
-            <Icon className="w-7 h-7 text-purple" />
+    <div className="service-item h-full pb-8 md:pb-12 relative z-10">
+      <div
+        ref={cardRef}
+        className="service-card group relative h-full"
+        style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div className="relative p-6 md:p-8 glass rounded-2xl border border-white/5 hover:border-purple/30 transition-all duration-500 h-full overflow-hidden">
+          {/* Moving border gradient on hover */}
+          <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden z-0">
+            <div className="absolute inset-[-50%] bg-gradient-conic from-transparent via-purple/20 to-transparent animate-rotate-slow" />
           </div>
 
-          {/* Title */}
-          <h3 className="text-xl font-semibold text-white mb-4 group-hover:text-purple transition-colors">
-            {service.title}
-          </h3>
+          {/* Content */}
+          <div className="relative z-20">
+            {/* Icon */}
+            <div className="w-12 md:w-14 h-12 md:h-14 mb-4 md:mb-6 rounded-xl bg-purple/10 flex items-center justify-center group-hover:bg-purple/20 transition-colors">
+              <Icon className="w-6 md:w-7 h-6 md:h-7 text-purple" />
+            </div>
 
-          {/* Description */}
-          <p className="text-white/60 text-sm leading-relaxed mb-6">
-            {service.description}
-          </p>
+            {/* Title */}
+            <h3 className="text-lg md:text-xl font-semibold text-white mb-3 md:mb-4 group-hover:text-purple transition-colors">
+              {service.title}
+            </h3>
 
-          {/* Features */}
-          <div className="flex flex-wrap gap-2">
-            {service.features.map((feature, fIndex) => (
-              <span
-                key={fIndex}
-                className="px-3 py-1 text-xs bg-white/5 text-white/70 rounded-full"
-              >
-                {feature}
-              </span>
-            ))}
+            {/* Description */}
+            <p className="text-white/60 text-sm leading-relaxed mb-4 md:mb-6">{service.description}</p>
+
+            {/* Features */}
+            <div className="flex flex-wrap gap-2">
+              {service.features.map((feature, fIndex) => (
+                <span key={fIndex} className="px-3 py-1 text-xs bg-white/5 text-white/70 rounded-full">
+                  {feature}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Glow effect */}
-        <div 
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-          style={{
-            background: `radial-gradient(circle at ${(mousePosition.x + 1) * 50}% ${(mousePosition.y + 1) * 50}%, rgba(126, 110, 227, 0.15), transparent 50%)`,
-          }}
-        />
+          {/* Glow effect */}
+          <div
+            className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"
+            style={{
+              background: `radial-gradient(circle at ${(mousePosition.x + 1) * 50}% ${(mousePosition.y + 1) * 50}%, rgba(126, 110, 227, 0.15), transparent 50%)`,
+            }}
+          />
+        </div>
       </div>
     </div>
   );
@@ -197,8 +190,11 @@ export default function Services() {
 
         // Parallax stagger on scroll
         cards.forEach((card, i) => {
+          const isMobile = window.innerWidth < 768;
+          const offset = isMobile ? 5 : (i % 2 === 0 ? -40 : 40);
+          
           gsap.to(card, {
-            y: i % 2 === 0 ? -40 : 40,
+            y: offset,
             scrollTrigger: {
               trigger: cardsRef.current,
               start: 'top bottom',
@@ -244,7 +240,7 @@ export default function Services() {
         {/* Services Grid */}
         <div
           ref={cardsRef}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-x-8 md:gap-y-14 lg:gap-10"
         >
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} />

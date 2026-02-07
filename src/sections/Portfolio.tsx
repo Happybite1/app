@@ -7,31 +7,31 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: 'Platform E-Learning Interaktif',
-    category: 'Education',
-    description: 'Platform pembelajaran online dengan fitur video interaktif, kuis, dan tracking progress.',
-    image: '/portfolio-1.jpg',
-    tags: ['React', 'Node.js', 'MongoDB'],
+    title: 'Platform Dahsbord Company Profile',
+    category: 'Corporate',
+    description: 'Platform dashboard untuk profil perusahaan dengan fitur real-time analytics.',
+    image: '/portofolio-4.png',
+    tags: ['Laravel', 'Blade', 'MYSQL'],
   },
   {
-    title: 'Sistem Manajemen Inventori',
+    title: 'Sistem Manajemen Business',
     category: 'Business',
-    description: 'Sistem lengkap untuk mengelola stok barang, pesanan, dan laporan penjualan.',
-    image: '/portfolio-2.jpg',
-    tags: ['Vue.js', 'Laravel', 'MySQL'],
+    description: 'Sistem lengkap untuk mengelola stok pelanggan, produksi, dan laporan penjualan.',
+    image: '/portofolio-5.png',
+    tags: ['Laravel', 'Blade', 'MySQL'],
   },
   {
     title: 'Website Portofolio Kreatif',
     category: 'Creative',
     description: 'Website portofolio elegan untuk kreator dan desainer dengan animasi smooth.',
-    image: '/portfolio-3.jpg',
+    image: '/',
     tags: ['Next.js', 'GSAP', 'Tailwind'],
   },
   {
     title: 'Aplikasi Manajemen Tugas',
     category: 'Productivity',
     description: 'Aplikasi kolaboratif untuk tim dengan kanban board dan real-time updates.',
-    image: '/portfolio-4.jpg',
+    image: '/',
     tags: ['React', 'Firebase', 'TypeScript'],
   },
 ];
@@ -64,7 +64,8 @@ export default function Portfolio() {
       // Horizontal scroll
       if (trackRef.current && containerRef.current) {
         const cards = trackRef.current.querySelectorAll('.portfolio-card');
-        const totalWidth = trackRef.current.scrollWidth - window.innerWidth + 100;
+        const isMobile = window.innerWidth < 768;
+        const totalWidth = trackRef.current.scrollWidth - window.innerWidth + (isMobile ? 50 : 100);
 
         gsap.to(trackRef.current, {
           x: -totalWidth,
@@ -134,12 +135,12 @@ export default function Portfolio() {
       <div ref={containerRef} className="relative">
         <div
           ref={trackRef}
-          className="flex gap-8 px-4 sm:px-6 lg:px-12 xl:px-20"
+          className="flex gap-6 px-4 sm:px-6 lg:px-12 xl:px-20"
         >
           {projects.map((project, index) => (
             <div
               key={index}
-              className="portfolio-card group relative flex-shrink-0 w-[85vw] md:w-[60vw] lg:w-[45vw]"
+              className="portfolio-card group relative flex-shrink-0 w-[95vw] sm:w-[80vw] md:w-[60vw] lg:w-[45vw]"
             >
               <div className="relative overflow-hidden rounded-2xl bg-dark-light">
                 {/* Image */}
@@ -202,7 +203,7 @@ export default function Portfolio() {
           ))}
 
           {/* View All Card */}
-          <div className="portfolio-card group relative flex-shrink-0 w-[85vw] md:w-[40vw] lg:w-[30vw]">
+          <div className="portfolio-card group relative flex-shrink-0 w-[95vw] sm:w-[80vw] md:w-[40vw] lg:w-[30vw]">
             <div className="relative h-full min-h-[400px] flex flex-col items-center justify-center p-8 glass rounded-2xl border border-dashed border-white/20 hover:border-purple/50 transition-colors">
               <div className="w-20 h-20 mb-6 rounded-full bg-purple/10 flex items-center justify-center group-hover:bg-purple/20 transition-colors">
                 <ArrowUpRight className="w-10 h-10 text-purple" />
