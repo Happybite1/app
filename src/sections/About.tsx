@@ -166,14 +166,14 @@ export default function About() {
               ref={headingRef}
               className="text-responsive-section font-bold text-white mb-8"
             >
-              Pengembang Web yang Berfokus pada{' '}
+              Rahmat Sito seorang Pengembang Web yang Berfokus pada{' '}
               <span className="text-gradient">Solusi Digital</span>
             </h2>
 
             {/* Description */}
             <div className="space-y-6 text-white/70 leading-relaxed">
               <p className="content-item">
-                Saya adalah seorang pengembang web yang berfokus pada pembuatan sistem dan 
+                Rahmat Sito Pambudi adalah seorang pengembang web yang berfokus pada pembuatan sistem dan 
                 website profesional. Saya memiliki ketertarikan dalam mengembangkan solusi 
                 digital yang efektif, responsif, dan mudah digunakan.
               </p>
