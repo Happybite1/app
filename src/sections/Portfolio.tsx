@@ -132,10 +132,10 @@ export default function Portfolio() {
       </div>
 
       {/* Horizontal Scroll Container */}
-      <div ref={containerRef} className="relative">
+      <div ref={containerRef} className="relative min-h-screen flex items-center">
         <div
           ref={trackRef}
-          className="flex gap-6 px-4 sm:px-6 lg:px-12 xl:px-20"
+          className="flex gap-6 px-4 sm:px-6 lg:px-12 xl:px-20 items-center w-full"
         >
           {projects.map((project, index) => (
             <div
