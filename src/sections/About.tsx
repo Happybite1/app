@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Download } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -203,18 +202,6 @@ export default function About() {
                   <div className="text-xs md:text-sm text-white/60">{stat.label}</div>
                 </div>
               ))}
-            </div>
-
-            {/* Download CV Button */}
-            <div className="content-item mt-12">
-              <a
-                href="/cv.pdf"
-                download
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple to-purple-dark hover:shadow-glow text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 group"
-              >
-                <span>Download CV</span>
-                <Download className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
-              </a>
             </div>
           </div>
         </div>
