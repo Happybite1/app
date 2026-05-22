@@ -173,6 +173,14 @@ export default function Hero() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple to-purple-light opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </a>
             <a
+              href="/CV.pdf"
+              download="CV.pdf"
+              className="group inline-flex items-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-semibold rounded-full border border-white/10 hover:border-purple/50 transition-all duration-300"
+            >
+              <MessageCircle className="w-5 h-5" />
+              <span>Download CV</span>
+            </a>
+            <a
               href="#contact"
               onClick={(e) => handleScrollTo(e, '#contact')}
               className="group inline-flex items-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-semibold rounded-full border border-white/10 hover:border-purple/50 transition-all duration-300"
