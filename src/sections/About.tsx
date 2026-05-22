@@ -183,8 +183,8 @@ export default function About() {
                 mengutamakan detail, performa, dan pengalaman pengguna dalam setiap proyek.
               </p>
               <p className="content-item">
-                Dengan pengalaman lebih dari 1 tahun di industri ini, saya telah membantu 
-                berbagai klien dari berbagai sektor untuk mewujudkan visi digital mereka. 
+                Dengan pengalaman dari 5 bulan praktik kerja lapangan, saya telah membantu 
+                berbagai klien untuk mewujudkan visi digital mereka. Setiap proyek adalah kesempatan
                 Setiap proyek adalah kesempatan baru untuk menciptakan sesuatu yang luar biasa.
               </p>
             </div>
