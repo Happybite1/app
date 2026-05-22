@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ArrowRight, MessageCircle } from 'lucide-react';
+import { ArrowRight, MessageCircle, Download } from 'lucide-react';
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -177,7 +177,7 @@ export default function Hero() {
               download="CV.pdf"
               className="group inline-flex items-center gap-2 px-8 py-4 bg-white/5 hover:bg-red-600 text-red-500 hover:text-white font-semibold rounded-full border border-red-500 hover:border-red-400 transition-all duration-300"
             >
-              <MessageCircle className="w-5 h-5 text-red-500 group-hover:text-white" />
+              <Download className="w-5 h-5 text-red-500 group-hover:text-white" />
               <span>Download CV</span>
             </a>
             <a
