@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: 1, suffix: '+', label: 'Tahun Pengalaman' },
+  { value: 1, suffix: '-', label: 'BulanPengalaman' },
   { value: 2, suffix: '+', label: 'Proyek Selesai' },
   { value: 5, suffix: '+', label: 'Klien Puas' },
 ];
