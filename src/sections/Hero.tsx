@@ -175,9 +175,9 @@ export default function Hero() {
             <a
               href="/CV.pdf"
               download="CV.pdf"
-              className="group inline-flex items-center gap-2 px-8 py-4 bg-red/5 hover:bg-white/10 text-white font-semibold rounded-full border border-white/10 hover:border-purple/50 transition-all duration-300"
+              className="group inline-flex items-center gap-2 px-8 py-4 bg-white/5 hover:bg-red-600 text-red-500 hover:text-white font-semibold rounded-full border border-red-500 hover:border-red-400 transition-all duration-300"
             >
-              <MessageCircle className="w-5 h-5" />
+              <MessageCircle className="w-5 h-5 text-red-500 group-hover:text-white" />
               <span>Download CV</span>
             </a>
             <a
