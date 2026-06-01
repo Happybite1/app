@@ -141,6 +141,8 @@ export default function About() {
                 src="/profile.jpeg"
                 alt="Profile"
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
               {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent" />

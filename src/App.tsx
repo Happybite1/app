@@ -1,55 +1,75 @@
-import { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from '@studio-freight/lenis';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import './App.css';
 
-// Import sections
+// Import always-needed sections
 import Hero from './sections/Hero';
-import About from './sections/About';
-import Services from './sections/Services';
-import Portfolio from './sections/Portfolio';
-import WhyChooseMe from './sections/WhyChooseMe';
-import Contact from './sections/Contact';
 import Navigation from './sections/Navigation';
-import Footer from './sections/Footer';
 
-gsap.registerPlugin(ScrollTrigger);
+const About = lazy(() => import('./sections/About'));
+const Services = lazy(() => import('./sections/Services'));
+const Portfolio = lazy(() => import('./sections/Portfolio'));
+const WhyChooseMe = lazy(() => import('./sections/WhyChooseMe'));
+const Contact = lazy(() => import('./sections/Contact'));
+const Footer = lazy(() => import('./sections/Footer'));
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Initialize Lenis smooth scroll
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      smoothWheel: true,
-    });
+    let lenis: any;
+    let scrollTrigger: any;
+    let rafId: number;
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
+    const init = async () => {
+      const [{ default: Lenis }, gsapModule, scrollModule] = await Promise.all([
+        import('@studio-freight/lenis'),
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+      ]);
 
-    // Connect Lenis to ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
+      const gsap = gsapModule.gsap;
+      scrollTrigger = scrollModule.ScrollTrigger;
+      gsap.registerPlugin(scrollTrigger);
+
+      lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        smoothWheel: true,
+      });
+
+      const raf = (time: number) => {
+        lenis.raf(time);
+        rafId = requestAnimationFrame(raf);
+      };
+      rafId = requestAnimationFrame(raf);
+
+      lenis.on('scroll', scrollTrigger.update);
+      gsap.ticker.add((time: number) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+    };
+
+    init();
 
     // Page load animation
-    setTimeout(() => {
+    const loadTimer = window.setTimeout(() => {
       setIsLoaded(true);
     }, 100);
 
     return () => {
-      lenis.destroy();
-      ScrollTrigger.getAll().forEach(st => st.kill());
+      window.clearTimeout(loadTimer);
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      if (lenis) {
+        lenis.destroy();
+      }
+      if (scrollTrigger?.getAll) {
+        scrollTrigger.getAll().forEach((st: any) => st.kill());
+      }
     };
   }, []);
 
@@ -67,15 +87,19 @@ function App() {
       {/* Main Content */}
       <main className="relative">
         <Hero />
-        <About />
-        <Services />
-        <Portfolio />
-        <WhyChooseMe />
-        <Contact />
+        <Suspense fallback={<div className="min-h-[320px] bg-dark" />}>
+          <About />
+          <Services />
+          <Portfolio />
+          <WhyChooseMe />
+          <Contact />
+        </Suspense>
       </main>
       
       {/* Footer */}
-      <Footer />
+      <Suspense fallback={<div className="h-44 bg-dark" />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }

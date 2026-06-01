@@ -24,14 +24,14 @@ const projects = [
     title: 'Website Portofolio Kreatif',
     category: 'Creative',
     description: 'Website portofolio elegan untuk kreator dan desainer dengan animasi smooth.',
-    image: '/',
+    image: '/portfolio-1.jpg',
     tags: ['Next.js', 'GSAP', 'Tailwind'],
   },
   {
     title: 'Aplikasi Manajemen Tugas',
     category: 'Productivity',
     description: 'Aplikasi kolaboratif untuk tim dengan kanban board dan real-time updates.',
-    image: '/',
+    image: '/portfolio-2.jpg',
     tags: ['React', 'Firebase', 'TypeScript'],
   },
 ];
@@ -149,6 +149,8 @@ export default function Portfolio() {
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                    decoding="async"
                   />
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />

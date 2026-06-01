@@ -117,6 +117,8 @@ export default function Hero() {
           src="/hero-bg.jpg"
           alt="Hero Background"
           className="w-full h-full object-cover opacity-60"
+          decoding="async"
+          fetchPriority="high"
         />
       </div>
 
