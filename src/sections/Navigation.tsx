@@ -5,7 +5,7 @@ import { Menu, X } from 'lucide-react';
 const navLinks = [
   { label: 'Beranda', href: '#hero' },
   { label: 'Tentang', href: '#about' },
-  { label: 'Layanan', href: '#services' },
+  { label: 'My Skills', href: '#skills' },
   { label: 'Portofolio', href: '#portfolio' },
   { label: 'Kontak', href: '#contact' },
 ];

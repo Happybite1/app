@@ -2,45 +2,57 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  Globe, 
-  Database, 
+  Code, 
   Palette, 
-  Zap, 
-  Settings 
+  Database, 
+  Edit, 
+  Video 
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
   {
-    icon: Globe,
-    title: 'Pengembangan Website Profesional',
-    description: 'Website modern, responsif, dan SEO-friendly yang dirancang untuk memaksimalkan presence digital bisnis Anda.',
-    features: ['Responsive Design', 'SEO Optimized', 'Fast Loading'],
-  },
-  {
-    icon: Database,
-    title: 'Pembuatan Sistem Informasi & Aplikasi Web',
-    description: 'Solusi sistem informasi yang powerful dan scalable untuk mengelola data dan proses bisnis Anda.',
-    features: ['Custom Development', 'Database Design', 'API Integration'],
+    icon: Code,
+    title: 'HTML',
+    description: 'Markup language untuk membangun struktur website yang semantik dan accessibility-friendly.',
+    features: ['Semantic HTML', 'SEO Friendly', 'Responsive'],
   },
   {
     icon: Palette,
-    title: 'Desain UI/UX Modern & Responsif',
-    description: 'Desain antarmuka yang intuitif dan pengalaman pengguna yang memukau untuk setiap platform.',
-    features: ['User Research', 'Wireframing', 'Prototyping'],
+    title: 'CSS',
+    description: 'Styling dan layout yang modern dengan Tailwind CSS, SCSS, dan CSS Grid untuk desain responsif.',
+    features: ['Tailwind CSS', 'Responsive Design', 'Animations'],
   },
   {
-    icon: Zap,
-    title: 'Optimasi Performa Website',
-    description: 'Tingkatkan kecepatan dan performa website Anda untuk pengalaman pengguna yang optimal.',
-    features: ['Speed Optimization', 'Code Minification', 'Caching'],
+    icon: Code,
+    title: 'JavaScript',
+    description: 'Bahasa pemrograman untuk membuat interaksi dinamis dan aplikasi web yang powerful di browser.',
+    features: ['ES6+', 'DOM Manipulation', 'Async/Await'],
   },
   {
-    icon: Settings,
-    title: 'Maintenance & Pengembangan Sistem',
-    description: 'Dukungan teknis berkelanjutan dan pengembangan fitur baru untuk sistem yang selalu up-to-date.',
-    features: ['24/7 Support', 'Regular Updates', 'Bug Fixes'],
+    icon: Code,
+    title: 'PHP',
+    description: 'Server-side scripting language untuk backend development dan pembuatan API yang robust.',
+    features: ['OOP', 'Database Connection', 'RESTful API'],
+  },
+  {
+    icon: Database,
+    title: 'Laravel Framework',
+    description: 'PHP framework modern untuk membangun aplikasi web yang scalable dengan architecture yang clean.',
+    features: ['Eloquent ORM', 'Blade Templates', 'Migrations'],
+  },
+  {
+    icon: Edit,
+    title: 'Canva',
+    description: 'Design tool untuk membuat visual content yang menarik seperti poster, banner, dan social media graphics.',
+    features: ['Templates', 'Custom Design', 'Brand Kit'],
+  },
+  {
+    icon: Video,
+    title: 'CapCut',
+    description: 'Video editing software untuk membuat konten video berkualitas tinggi dengan efek dan transisi profesional.',
+    features: ['Video Editing', 'Effects', 'Color Grading'],
   },
 ];
 
@@ -223,16 +235,16 @@ export default function Skills() {
         {/* Header */}
         <div ref={headingRef} className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="text-3xl">💼</span>
+            <span className="text-3xl">⚡</span>
             <span className="text-sm font-medium text-purple uppercase tracking-wider">
-              Skill
+              My Skill
             </span>
           </div>
           <h2 className="text-responsive-section font-bold text-white mb-4">
-            Solusi Digital <span className="text-gradient">Lengkap</span>
+            Teknologi & Tool <span className="text-gradient">Yang Saya Kuasai</span>
           </h2>
           <p className="text-white/60 max-w-2xl mx-auto">
-            Saya menyediakan berbagai skill pengembangan web dan desain untuk membantu bisnis Anda berkembang di dunia digital.
+            Saya menguasai berbagai teknologi frontend, backend, framework, dan design tool untuk menciptakan solusi digital yang sempurna.
           </p>
         </div>
 

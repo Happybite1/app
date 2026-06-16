@@ -6,7 +6,7 @@ import Hero from './sections/Hero';
 import Navigation from './sections/Navigation';
 
 const About = lazy(() => import('./sections/About'));
-const Services = lazy(() => import('./sections/Services'));
+const Skills = lazy(() => import('./sections/Skills'));
 const Portfolio = lazy(() => import('./sections/Portfolio'));
 const WhyChooseMe = lazy(() => import('./sections/WhyChooseMe'));
 const Contact = lazy(() => import('./sections/Contact'));
@@ -89,7 +89,7 @@ function App() {
         <Hero />
         <Suspense fallback={<div className="min-h-[320px] bg-dark" />}>
           <About />
-          <Services />
+          <Skills />
           <Portfolio />
           <WhyChooseMe />
           <Contact />

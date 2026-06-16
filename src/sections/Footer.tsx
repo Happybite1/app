@@ -6,17 +6,17 @@ const footerLinks = [
     links: [
       { label: 'Beranda', href: '#hero' },
       { label: 'Tentang', href: '#about' },
-      { label: 'Layanan', href: '#services' },
+      { label: 'Skill', href: '#skills' },
       { label: 'Portofolio', href: '#portfolio' },
     ],
   },
   {
-    title: 'Layanan',
+    title: 'Skill',
     links: [
-      { label: 'Website Profesional', href: '#services' },
-      { label: 'Sistem Informasi', href: '#services' },
-      { label: 'Desain UI/UX', href: '#services' },
-      { label: 'Optimasi Performa', href: '#services' },
+      { label: 'Website Profesional', href: '#skills' },
+      { label: 'Sistem Informasi', href: '#skills' },
+      { label: 'Desain UI/UX', href: '#skills' },
+      { label: 'Optimasi Performa', href: '#skills' },
     ],
   },
 ];

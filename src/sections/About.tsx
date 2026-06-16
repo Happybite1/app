@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 const stats = [
   { value: 5, suffix: '', label: 'Bulan Pengalaman' },
   { value: 2, suffix: '+', label: 'Proyek Selesai' },
-  { value: 5, suffix: '+', label: 'Klien Puas' },
+  // { value: 5, suffix: '+', label: 'Klien Puas' },
 ];
 
 function Counter({ value, suffix }: { value: number; suffix: string }) {
@@ -168,26 +168,17 @@ export default function About() {
               ref={headingRef}
               className="text-responsive-section font-bold text-white mb-8"
             >
-              Rahmat Sito seorang Pengembang Web yang Berfokus pada{' '}
-              <span className="text-gradient">Solusi Digital</span>
+              Rahmat Sito Pambudi{' '}
+              {/* <span className="text-gradient">Solusi Digital</span> */}
             </h2>
 
             {/* Description */}
             <div className="space-y-6 text-white/70 leading-relaxed">
               <p className="content-item">
-                Rahmat Sito Pambudi adalah seorang pengembang web yang berfokus pada pembuatan sistem dan 
-                website profesional. Saya memiliki ketertarikan dalam mengembangkan solusi 
-                digital yang efektif, responsif, dan mudah digunakan.
+                I am a graduate of Software Engineering from SMK Nusantara 1 Tangerang City, graduating in 2026. During my studies, I developed skills in Information Technology (IT), Graphic Design, and Video Editing.
               </p>
               <p className="content-item">
-                Saya percaya bahwa sebuah website bukan hanya sekadar tampilan, tetapi juga 
-                representasi identitas dan kualitas sebuah brand. Oleh karena itu, saya selalu 
-                mengutamakan detail, performa, dan pengalaman pengguna dalam setiap proyek.
-              </p>
-              <p className="content-item">
-                Dengan pengalaman dari 5 bulan praktik kerja lapangan, saya telah membantu 
-                berbagai klien untuk mewujudkan visi digital mereka. Setiap proyek adalah kesempatan
-                Setiap proyek adalah kesempatan baru untuk menciptakan sesuatu yang luar biasa.
+                During my internship, I worked as an IT Support, Graphic Designer, and Video Editor. My responsibilities included developing company profile websites, creating and implementing website forms to support user data collection processes, editing and optimizing testimonial videos for social media content, and designing e-flyers for social media and digital advertising campaigns.
               </p>
             </div>
 

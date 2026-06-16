@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ArrowRight, MessageCircle, Download } from 'lucide-react';
 
@@ -9,30 +9,31 @@ export default function Hero() {
   const ctaRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const [typedHeadline, setTypedHeadline] = useState('');
+  const [typedDesc, setTypedDesc] = useState('');
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Timeline for entrance animations
       const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
 
-      // Headline animation - word by word
       if (headlineRef.current) {
-        const words = headlineRef.current.querySelectorAll('.word');
         tl.fromTo(
-          words,
-          { y: 100, opacity: 0, rotateX: -45 },
-          { y: 0, opacity: 1, rotateX: 0, duration: 1.2, stagger: 0.08 },
+          headlineRef.current,
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.2 },
           0.2
         );
       }
 
-      // Description fade in with blur
-      tl.fromTo(
-        descRef.current,
-        { opacity: 0, filter: 'blur(10px)' },
-        { opacity: 1, filter: 'blur(0px)', duration: 1 },
-        0.6
-      );
+      if (descRef.current) {
+        tl.fromTo(
+          descRef.current,
+          { opacity: 0, filter: 'blur(10px)' },
+          { opacity: 1, filter: 'blur(0px)', duration: 1 },
+          0.6
+        );
+      }
 
       // CTA buttons elastic scale
       if (ctaRef.current) {
@@ -88,8 +89,69 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
-  const headlineText = 'Mewujudkan Ide Menjadi Solusi Digital yang Elegan & Fungsional';
-  const words = headlineText.split(' ');
+  useEffect(() => {
+    const text = "I'm Rahmat Sito Pambudi";
+    let idx = 0;
+    let isDeleting = false;
+    let timeoutId: number;
+
+    const tick = () => {
+      if (!isDeleting) {
+        idx += 1;
+        setTypedHeadline(text.slice(0, idx));
+        if (idx === text.length) {
+          timeoutId = window.setTimeout(() => {
+            isDeleting = true;
+            tick();
+          }, 1200);
+          return;
+        }
+      } else {
+        idx -= 1;
+        setTypedHeadline(text.slice(0, idx));
+        if (idx === 0) {
+          isDeleting = false;
+        }
+      }
+      timeoutId = window.setTimeout(tick, isDeleting ? 40 : 80);
+    };
+
+    tick();
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  useEffect(() => {
+    const text = 'Full Stack Developer | Graphic Designer | Video Editor';
+    let idx = 0;
+    let isDeleting = false;
+    let timeoutId: number;
+
+    const tick = () => {
+      if (!isDeleting) {
+        idx += 1;
+        setTypedDesc(text.slice(0, idx));
+        if (idx === text.length) {
+          timeoutId = window.setTimeout(() => {
+            isDeleting = true;
+            tick();
+          }, 1200);
+          return;
+        }
+      } else {
+        idx -= 1;
+        setTypedDesc(text.slice(0, idx));
+        if (idx === 0) {
+          isDeleting = false;
+        }
+      }
+      timeoutId = window.setTimeout(tick, isDeleting ? 40 : 80);
+    };
+
+    tick();
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -134,33 +196,24 @@ export default function Hero() {
           {/* Headline */}
           <h1
             ref={headlineRef}
-            className="text-responsive-hero font-bold text-white mb-6 leading-tight"
+            className="text-responsive-hero font-bold text-white mb-1 leading-tight"
             style={{ transformStyle: 'preserve-3d' }}
           >
-            {words.map((word, index) => (
-              <span
-                key={index}
-                className="word inline-block mr-[0.25em]"
-                style={{ transformStyle: 'preserve-3d' }}
-              >
-                {word === 'Elegan' || word === 'Fungsional' ? (
-                  <span className="text-gradient">{word}</span>
-                ) : (
-                  word
-                )}
-              </span>
-            ))}
+            <span className="inline-block whitespace-pre-wrap">
+              {typedHeadline}
+              <span className="inline-block w-[1px] h-[1.1em] ml-1 bg-white animate-pulse" />
+            </span>
           </h1>
 
           {/* Description */}
-          <p
+          <p    
             ref={descRef}
-            className="text-base md:text-lg text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed"
+            className="text-white text-lg md:text-xl max-w-3xl mx-auto mb-8 font-bold"
           >
-            Saya membantu menciptakan website dan aplikasi yang tidak hanya menarik secara visual, 
-            tetapi juga memberikan pengalaman pengguna yang optimal dan performa yang maksimal. 
-            Dengan pendekatan desain modern dan teknologi terbaru, setiap proyek saya dirancang 
-            untuk memberikan nilai terbaik bagi klien.
+            <span className="inline-block">
+              {typedDesc}
+              <span className="inline-block w-[1px] h-[1.1em] ml-2 bg-white animate-pulse" />
+            </span>
           </p>
 
           {/* CTA Buttons */}
