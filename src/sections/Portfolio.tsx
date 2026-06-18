@@ -21,18 +21,18 @@ const projects = [
     tags: ['Laravel', 'Blade', 'MySQL'],
   },
   {
-    title: 'Website Portofolio Kreatif',
-    category: 'Creative',
-    description: 'Website portofolio elegan untuk kreator dan desainer dengan animasi smooth.',
-    image: '/portfolio-1.jpg',
-    tags: ['Next.js', 'GSAP', 'Tailwind'],
+    title: 'lorem ipsum dolor sit amet',
+    category: 'lorem',
+    description: '',
+    image: '',
+    tags: [],
   },
   {
-    title: 'Aplikasi Manajemen Tugas',
-    category: 'Productivity',
-    description: 'Aplikasi kolaboratif untuk tim dengan kanban board dan real-time updates.',
-    image: '/portfolio-2.jpg',
-    tags: ['React', 'Firebase', 'TypeScript'],
+    title: 'lorem ipsum dolor sit amet',
+    category: 'lorem',
+    description: '',
+    image: '',
+    tags: [],
   },
 ];
 
@@ -117,7 +117,7 @@ export default function Portfolio() {
             <div className="flex items-center gap-3 mb-6">
               <span className="text-3xl">🧩</span>
               <span className="text-sm font-medium text-purple uppercase tracking-wider">
-                Portofolio
+                My Portofolio
               </span>
             </div>
             <h2 className="text-responsive-section font-bold text-white">

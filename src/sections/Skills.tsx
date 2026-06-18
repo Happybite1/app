@@ -22,7 +22,7 @@ const skills = [
     icon: Palette,
     title: 'CSS',
     description: 'Styling dan layout yang modern dengan Tailwind CSS, SCSS, dan CSS Grid untuk desain responsif.',
-    features: ['Tailwind CSS', 'Responsive Design', 'Animations'],
+    features: ['Bootstrap 5','Responsive Design', 'Animations'],
   },
   {
     icon: Code,
