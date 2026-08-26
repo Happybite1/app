@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, Phone, Globe, Send, Github, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Phone, Send, Github, Linkedin, Instagram } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -25,7 +25,7 @@ const socialLinks = [
   { icon: Github, label: 'GitHub', href: 'https://github.com/Happybite1' },
   { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/in/rahmat-sito-646649353/' },
   { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/nyomattss__/' },
-  { icon: Globe, label: 'Website', href: '#' },
+  { icon: Mail, label: 'Email', href: 'mailto:rahmatsito801@gmail.com' },
 ];
 
 export default function Contact() {
@@ -101,30 +101,30 @@ export default function Contact() {
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  try {
-    await emailjs.send(
-      'service_2xp6imt',
-      'template_n06cbd6',
-      {
-        name: formData.name,
-        email: formData.email,
-        message: formData.message,
-      },
-      '4bjeRaCLf699kY7Mr'
-    );
+    try {
+      await emailjs.send(
+        'service_2xp6imt',
+        'template_n06cbd6',
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
+        '4bjeRaCLf699kY7Mr'
+      );
 
-    setIsSubmitted(true);
-    setFormData({ name: '', email: '', message: '' });
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', message: '' });
 
-  } catch (error) {
-    console.log(error);
-  }
+    } catch (error) {
+      console.log(error);
+    }
 
-  setIsSubmitting(false);
-};
+    setIsSubmitting(false);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
@@ -156,7 +156,7 @@ export default function Contact() {
             Mari <span className="text-gradient">Bekerja Sama</span>
           </h2>
           <p className="text-white/60 max-w-2xl mx-auto">
-            Tertarik bekerja sama atau ingin mendiskusikan proyek Anda? 
+            Tertarik bekerja sama atau ingin mendiskusikan proyek Anda?
             Saya siap membantu mewujudkan ide Anda menjadi solusi digital yang berkualitas.
           </p>
         </div>
@@ -216,7 +216,7 @@ export default function Contact() {
                   Respons Cepat
                 </h3>
                 <p className="text-white/60 text-sm">
-                  Saya biasanya merespons dalam waktu 24 jam pada hari kerja. 
+                  Saya biasanya merespons dalam waktu 24 jam pada hari kerja.
                   Untuk pertanyaan urgent, silakan hubungi via WhatsApp.
                 </p>
               </div>
@@ -233,11 +233,10 @@ export default function Contact() {
             <div className="relative">
               <label
                 htmlFor="name"
-                className={`absolute left-4 transition-all duration-300 pointer-events-none ${
-                  focusedField === 'name' || formData.name
+                className={`absolute left-4 transition-all duration-300 pointer-events-none ${focusedField === 'name' || formData.name
                     ? 'top-2 text-xs text-purple'
                     : 'top-1/2 -translate-y-1/2 text-white/50'
-                }`}
+                  }`}
               >
                 Nama
               </label>
@@ -258,11 +257,10 @@ export default function Contact() {
             <div className="relative">
               <label
                 htmlFor="email"
-                className={`absolute left-4 transition-all duration-300 pointer-events-none ${
-                  focusedField === 'email' || formData.email
+                className={`absolute left-4 transition-all duration-300 pointer-events-none ${focusedField === 'email' || formData.email
                     ? 'top-2 text-xs text-purple'
                     : 'top-1/2 -translate-y-1/2 text-white/50'
-                }`}
+                  }`}
               >
                 Email
               </label>
@@ -283,11 +281,10 @@ export default function Contact() {
             <div className="relative">
               <label
                 htmlFor="message"
-                className={`absolute left-4 transition-all duration-300 pointer-events-none ${
-                  focusedField === 'message' || formData.message
+                className={`absolute left-4 transition-all duration-300 pointer-events-none ${focusedField === 'message' || formData.message
                     ? 'top-2 text-xs text-purple'
                     : 'top-4 text-white/50'
-                }`}
+                  }`}
               >
                 Pesan
               </label>
@@ -314,7 +311,7 @@ export default function Contact() {
                 <span>Kirim Pesan</span>
                 <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
               </span>
-              
+
               {isSubmitting && (
                 <span className="absolute inset-0 flex items-center justify-center">
                   <svg className="animate-spin w-6 h-6" viewBox="0 0 24 24">
@@ -325,7 +322,7 @@ export default function Contact() {
               )}
 
               {/* Liquid fill effect */}
-              <div className="absolute inset-0 bg-purple-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" 
+              <div className="absolute inset-0 bg-purple-light opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
                 style={{
                   clipPath: 'circle(0% at var(--mouse-x, 50%) var(--mouse-y, 50%))',
                 }}

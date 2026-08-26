@@ -6,17 +6,19 @@ const footerLinks = [
     links: [
       { label: 'Beranda', href: '#hero' },
       { label: 'Tentang', href: '#about' },
-      { label: 'Skill', href: '#skills' },
+      { label: 'Keahlian', href: '#skills' },
       { label: 'Portofolio', href: '#portfolio' },
+      { label: 'Pengalaman', href: '#experience' },
+      { label: 'Kontak', href: '#contact' },
     ],
   },
   {
-    title: 'Skill',
+    title: 'Keahlian Utama',
     links: [
-      { label: 'Website Profesional', href: '#skills' },
-      { label: 'Sistem Informasi', href: '#skills' },
-      { label: 'Desain UI/UX', href: '#skills' },
-      { label: 'Optimasi Performa', href: '#skills' },
+      { label: 'Backend PHP & Laravel', href: '#skills' },
+      { label: 'Frontend Responsive UI', href: '#skills' },
+      { label: 'Desain Database MySQL', href: '#skills' },
+      { label: 'Desain Grafis & Video Editing', href: '#skills' },
     ],
   },
 ];

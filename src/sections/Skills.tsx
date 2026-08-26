@@ -2,166 +2,155 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  Code, 
-  Palette, 
+  Code2, 
+  Layers, 
   Database, 
-  Edit, 
-  Video 
+  Server, 
+  Wrench, 
+  GitBranch, 
+  Palette, 
+  Video, 
+  Cpu, 
+  Globe
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const skills = [
+type SkillCategory = 'all' | 'frontend' | 'backend' | 'tools' | 'design';
+
+interface SkillItem {
+  icon: any;
+  title: string;
+  category: 'frontend' | 'backend' | 'tools' | 'design';
+  categoryLabel: string;
+  level: string;
+  description: string;
+  features: string[];
+}
+
+const skillsData: SkillItem[] = [
+  // Backend & DB
   {
-    icon: Code,
-    title: 'HTML',
-    description: 'Markup language untuk membangun struktur website yang semantik dan accessibility-friendly.',
-    features: ['Semantic HTML', 'SEO Friendly', 'Responsive'],
-  },
-  {
-    icon: Palette,
-    title: 'CSS',
-    description: 'Styling dan layout yang modern dengan Tailwind CSS, SCSS, dan CSS Grid untuk desain responsif.',
-    features: ['Bootstrap 5','Responsive Design', 'Animations'],
-  },
-  {
-    icon: Code,
-    title: 'JavaScript',
-    description: 'Bahasa pemrograman untuk membuat interaksi dinamis dan aplikasi web yang powerful di browser.',
-    features: ['ES6+', 'DOM Manipulation', 'Async/Await'],
-  },
-  {
-    icon: Code,
-    title: 'PHP',
-    description: 'Server-side scripting language untuk backend development dan pembuatan API yang robust.',
-    features: ['OOP', 'Database Connection', 'RESTful API'],
+    icon: Server,
+    title: 'PHP (Native & OOP)',
+    category: 'backend',
+    categoryLabel: 'Backend Development',
+    level: 'Mahir / Utama',
+    description: 'Pemrograman backend dengan paradigma OOP, arsitektur MVC, pengolahan sesi pengguna, dan pembuatan endpoint REST API yang handal.',
+    features: ['Object-Oriented Programming', 'MVC Architecture', 'RESTful API', 'Session & Auth'],
   },
   {
     icon: Database,
     title: 'Laravel Framework',
-    description: 'PHP framework modern untuk membangun aplikasi web yang scalable dengan architecture yang clean.',
-    features: ['Eloquent ORM', 'Blade Templates', 'Migrations'],
+    category: 'backend',
+    categoryLabel: 'Backend Development',
+    level: 'Framework Utama',
+    description: 'Pengembangan sistem web modern dengan Eloquent ORM, Blade templating, migrasi database, middleware, dan sistem autentikasi aman.',
+    features: ['Eloquent ORM', 'Blade Template Engine', 'Database Migrations', 'Form Validation'],
   },
   {
-    icon: Edit,
-    title: 'Canva',
-    description: 'Design tool untuk membuat visual content yang menarik seperti poster, banner, dan social media graphics.',
-    features: ['Templates', 'Custom Design', 'Brand Kit'],
+    icon: Database,
+    title: 'MySQL & Database Design',
+    category: 'backend',
+    categoryLabel: 'Database',
+    level: 'Relational DB',
+    description: 'Perancangan skema relasi database (ERD), optimasi query SQL, integritas foreign key, dan operasi CRUD kompleks.',
+    features: ['Relational Schema / ERD', 'Query Optimization', 'Foreign Keys', 'Data Integrity'],
+  },
+
+  // Frontend
+  {
+    icon: Code2,
+    title: 'JavaScript (ES6+)',
+    category: 'frontend',
+    categoryLabel: 'Frontend Development',
+    level: 'Intermediate',
+    description: 'Manipulasi DOM dinamis, asynchronous JS (Fetch API, Promises, Async/Await), dan penanganan event interaktif di browser.',
+    features: ['ES6+ Syntax', 'Async / Await', 'DOM Manipulation', 'Event Handling'],
+  },
+  {
+    icon: Globe,
+    title: 'HTML5 & Semantic Markup',
+    category: 'frontend',
+    categoryLabel: 'Frontend Development',
+    level: 'Standar Industri',
+    description: 'Penyusunan struktur halaman web yang semantik, ramah SEO, dan memenuhi kaidah aksesibilitas web modern.',
+    features: ['Semantic HTML', 'SEO Friendly', 'Accessibility', 'Web Standards'],
+  },
+  {
+    icon: Layers,
+    title: 'CSS3, Tailwind & Bootstrap',
+    category: 'frontend',
+    categoryLabel: 'Frontend Styling',
+    level: 'Responsive UI',
+    description: 'Penerapan antarmuka responsif menggunakan Tailwind CSS utility classes, Bootstrap 5 grid system, dan CSS Flexbox/Grid.',
+    features: ['Tailwind CSS', 'Bootstrap 5', 'Flexbox & CSS Grid', 'Mobile-First Design'],
+  },
+
+  // Tools
+  {
+    icon: GitBranch,
+    title: 'Git & GitHub',
+    category: 'tools',
+    categoryLabel: 'Version Control',
+    level: 'Kolaborasi & VCS',
+    description: 'Manajemen versi kode, branching, commit convention rapi, repository management, dan alur kerja kolaboratif tim.',
+    features: ['Version Control', 'Branching & Merging', 'Pull Requests', 'Git Workflow'],
+  },
+  {
+    icon: Wrench,
+    title: 'Development Tools & Env',
+    category: 'tools',
+    categoryLabel: 'Workflow & Tools',
+    level: 'Dev Environment',
+    description: 'Penggunaan tool esensial seperti Laragon, XAMPP, Postman untuk testing API, VS Code, dan NodeJS/NPM.',
+    features: ['Laragon / XAMPP', 'Postman API Testing', 'VS Code', 'NPM / Composer'],
+  },
+
+  // Design & Media
+  {
+    icon: Palette,
+    title: 'Canva & UI Design',
+    category: 'design',
+    categoryLabel: 'Graphic Design',
+    level: 'Visual Asset',
+    description: 'Perancangan visual e-flyer promosi media sosial, materi kampanye iklan digital, serta mockup layout website.',
+    features: ['Social Media E-Flyer', 'Brand Assets', 'Digital Ads Banner', 'UI Mockup'],
   },
   {
     icon: Video,
-    title: 'CapCut',
-    description: 'Video editing software untuk membuat konten video berkualitas tinggi dengan efek dan transisi profesional.',
-    features: ['Video Editing', 'Effects', 'Color Grading'],
+    title: 'CapCut & Video Editing',
+    category: 'design',
+    categoryLabel: 'Multimedia',
+    level: 'Content Production',
+    description: 'Produksi dan penyuntingan video promosi/testimoni dengan transisi halus, color grading, audio mixing, dan subtitil dinamis.',
+    features: ['Testimonial Videos', 'Social Media Reels', 'Color Grading', 'Audio Sync'],
   },
 ];
 
-interface SkillCardProps {
-  skill: typeof skills[0];
-}
-
-function SkillCard({ skill }: SkillCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-    const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
-    setMousePosition({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setMousePosition({ x: 0, y: 0 });
-  };
-
-  useEffect(() => {
-    if (cardRef.current && isHovered) {
-      gsap.to(cardRef.current, {
-        rotateY: mousePosition.x * 15,
-        rotateX: -mousePosition.y * 15,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
-    } else if (cardRef.current) {
-      gsap.to(cardRef.current, {
-        rotateY: 0,
-        rotateX: 0,
-        duration: 0.5,
-        ease: 'power2.out',
-      });
-    }
-  }, [mousePosition, isHovered]);
-
-  const Icon = skill.icon;
-  return (
-    <div className="skill-item h-full pb-8 md:pb-12 relative z-10">
-      <div
-        ref={cardRef}
-        className="skill-card group relative h-full"
-        style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={handleMouseLeave}
-      >
-        <div className="relative p-6 md:p-8 glass rounded-2xl border border-white/5 hover:border-purple/30 transition-all duration-500 h-full overflow-hidden">
-          {/* Moving border gradient on hover */}
-          <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden z-0">
-            <div className="absolute inset-[-50%] bg-gradient-conic from-transparent via-purple/20 to-transparent animate-rotate-slow" />
-          </div>
-
-          {/* Content */}
-          <div className="relative z-20">
-            {/* Icon */}
-            <div className="w-12 md:w-14 h-12 md:h-14 mb-4 md:mb-6 rounded-xl bg-purple/10 flex items-center justify-center group-hover:bg-purple/20 transition-colors">
-              <Icon className="w-6 md:w-7 h-6 md:h-7 text-purple" />
-            </div>
-
-            {/* Title */}
-            <h3 className="text-lg md:text-xl font-semibold text-white mb-3 md:mb-4 group-hover:text-purple transition-colors">
-              {skill.title}
-            </h3>
-
-            {/* Description */}
-            <p className="text-white/60 text-sm leading-relaxed mb-4 md:mb-6">{skill.description}</p>
-
-            {/* Features */}
-            <div className="flex flex-wrap gap-2">
-              {skill.features.map((feature, fIndex) => (
-                <span key={fIndex} className="px-3 py-1 text-xs bg-white/5 text-white/70 rounded-full">
-                  {feature}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Glow effect */}
-          <div
-            className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"
-            style={{
-              background: `radial-gradient(circle at ${(mousePosition.x + 1) * 50}% ${(mousePosition.y + 1) * 50}%, rgba(126, 110, 227, 0.15), transparent 50%)`,
-            }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
+const categoryTabs: { id: SkillCategory; label: string; icon: any }[] = [
+  { id: 'all', label: 'Semua Keahlian', icon: Cpu },
+  { id: 'backend', label: 'Backend & Database', icon: Server },
+  { id: 'frontend', label: 'Frontend Development', icon: Code2 },
+  { id: 'tools', label: 'Tools & Workflow', icon: Wrench },
+  { id: 'design', label: 'Desain & Multimedia', icon: Palette },
+];
 
 export default function Skills() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const [activeCategory, setActiveCategory] = useState<SkillCategory>('all');
+
+  const filteredSkills = activeCategory === 'all' 
+    ? skillsData 
+    : skillsData.filter((skill) => skill.category === activeCategory);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Heading animation
       gsap.fromTo(
         headingRef.current,
-        { y: 50, opacity: 0 },
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
@@ -174,52 +163,28 @@ export default function Skills() {
           },
         }
       );
-
-      // Cards deal out animation
-      if (cardsRef.current) {
-        const cards = cardsRef.current.querySelectorAll('.skill-card');
-        gsap.fromTo(
-          cards,
-          { 
-            y: 100, 
-            opacity: 0, 
-            rotateZ: (i) => (i % 2 === 0 ? -5 : 5),
-          },
-          {
-            y: 0,
-            opacity: 1,
-            rotateZ: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'expo.out',
-            scrollTrigger: {
-              trigger: cardsRef.current,
-              start: 'top 70%',
-              once: true,
-            },
-          }
-        );
-
-        // Parallax stagger on scroll
-        cards.forEach((card, i) => {
-          const isMobile = window.innerWidth < 768;
-          const offset = isMobile ? 5 : (i % 2 === 0 ? -40 : 40);
-          
-          gsap.to(card, {
-            y: offset,
-            scrollTrigger: {
-              trigger: cardsRef.current,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1,
-            },
-          });
-        });
-      }
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
+
+  useEffect(() => {
+    if (cardsRef.current) {
+      const cards = cardsRef.current.querySelectorAll('.skill-card-item');
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 25, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.45,
+          stagger: 0.05,
+          ease: 'power2.out',
+        }
+      );
+    }
+  }, [activeCategory]);
 
   return (
     <section
@@ -228,36 +193,102 @@ export default function Skills() {
       className="relative py-24 md:py-32 overflow-hidden"
     >
       {/* Background decoration */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-purple/10 rounded-full blur-[150px] -translate-y-1/2" />
-      <div className="absolute top-1/3 right-0 w-64 h-64 bg-purple/5 rounded-full blur-[100px]" />
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-purple/10 rounded-full blur-[160px] -translate-y-1/2" />
+      <div className="absolute top-1/3 right-0 w-80 h-80 bg-purple/5 rounded-full blur-[120px]" />
 
       <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-20">
         {/* Header */}
-        <div ref={headingRef} className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="text-3xl">⚡</span>
-            <span className="text-sm font-medium text-purple uppercase tracking-wider">
-              My Skill
+        <div ref={headingRef} className="text-center mb-12">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="text-2xl">⚡</span>
+            <span className="text-sm font-semibold text-purple uppercase tracking-wider">
+              Keahlian & Teknologi
             </span>
           </div>
           <h2 className="text-responsive-section font-bold text-white mb-4">
-            Teknologi & Tool <span className="text-gradient">Yang Saya Kuasai</span>
+            Kompetensi Teknis <span className="text-gradient">Yang Dikuasai</span>
           </h2>
-          <p className="text-white/60 max-w-2xl mx-auto">
-            Saya menguasai berbagai teknologi frontend, backend, framework, dan design tool untuk menciptakan solusi digital yang sempurna.
+          <p className="text-white/60 max-w-2xl mx-auto text-sm sm:text-base">
+            Kombinasi kemampuan pengembangan backend yang kokoh, antarmuka web yang interaktif, serta keterampilan multimedia penunjang industri digital.
           </p>
+
+          {/* Category Filter Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-8">
+            {categoryTabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeCategory === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveCategory(tab.id)}
+                  className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
+                    isActive
+                      ? 'bg-purple text-white shadow-glow'
+                      : 'bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/5'
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Skills Grid */}
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-x-8 md:gap-y-14 lg:gap-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {skills.map((skill, index) => (
-            <SkillCard key={index} skill={skill} />
-          ))}
+          {filteredSkills.map((skill, index) => {
+            const Icon = skill.icon;
+            return (
+              <div
+                key={index}
+                className="skill-card-item group relative p-6 sm:p-7 glass rounded-2xl border border-white/5 hover:border-purple/35 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  {/* Top Bar: Icon + Category Badge */}
+                  <div className="flex items-center justify-between gap-4 mb-5">
+                    <div className="w-12 h-12 rounded-xl bg-purple/15 flex items-center justify-center text-purple group-hover:bg-purple group-hover:text-white transition-colors duration-300">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <span className="px-3 py-1 text-[11px] font-medium bg-purple/10 text-purple-light rounded-full border border-purple/20">
+                      {skill.level}
+                    </span>
+                  </div>
+
+                  {/* Title & Category Subtitle */}
+                  <div className="mb-1 text-[11px] font-medium text-white/40 uppercase tracking-wider">
+                    {skill.categoryLabel}
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-purple transition-colors">
+                    {skill.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-white/65 text-xs sm:text-sm leading-relaxed mb-6">
+                    {skill.description}
+                  </p>
+                </div>
+
+                {/* Features Badges */}
+                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-white/5">
+                  {skill.features.map((feature, fIndex) => (
+                    <span
+                      key={fIndex}
+                      className="px-2.5 py-1 text-[11px] bg-white/5 text-white/70 rounded-md border border-white/5"
+                    >
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+
